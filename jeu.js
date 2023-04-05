@@ -1,12 +1,12 @@
 //-----FONCTIONS-----//
 
-function shuffleChildren(parent){
+function shuffleChildren(parent) {
     let children = parent.children
     let i = children.length, k, temp
     // let k 
     // let temp 
-    
-    while(i-- > 0){ // tant que i - 1 est > 0
+
+    while (i-- > 0) { // tant que i - 1 est > 0
         // k stock un nombre aléatoire baasé sur i
         k = Math.floor(Math.random() * (i + 1)) // k = plusGrandEntier<= ( (0 <= nRandom < 1) * (i + 1) )
         // temp pointe temporairement l'élément à la position k dans board
@@ -18,15 +18,32 @@ function shuffleChildren(parent){
     }
 }
 
-function showReaction(type, clickedBox){ 
+function showReaction(type, clickedBox) {
     clickedBox.classList.add(type)
-    if(type !== "success"){
-        setTimeout(function(){
+    if (type !== "success") {
+        setTimeout(function () {
             clickedBox.classList.remove(type)
         }, 800)
     }
 }
 
+
+//----- TIMER -----//
+window.onload = function () {
+    var seconds = 0;
+    var start = document.getElementsByClassName(("box")[0]);
+    var interval;
+
+    start.onclick = function () {
+        clearInterval(interval);
+        interval = setInterval(chrono, 1000);
+    }
+
+    function chrono() {
+        seconds++;
+        document.getElementById("seconds").innerHTML = seconds;
+    }
+}
 
 //let i = board.children.length, k, temp //
 //-----  -----//
@@ -43,45 +60,45 @@ const board = document.querySelector("#board") //cibler le 1er élément corresp
 let nb = 1
 let nbBox = prompt("Nombre de box?")
 
-for(let i = 1; i <= nbBox; i++){
+for (let i = 1; i <= nbBox; i++) {
     const newbox = box.cloneNode() // permet de cloner l'élément div (const box) : ne pas oublier new
     newbox.innerText = i // ajouter le texte à l'élément div
     board.appendChild(newbox) // ajouter l'élément div à l'élément board
 
-    newbox.addEventListener("click", function(){ // création d'un événement click
-        
-        if(i == nb){
+    newbox.addEventListener("click", function () { // création d'un événement click
+
+        if (i == nb) {
             // console.log("Boite n°"+ i +", click !") //
             newbox.classList.add("box-clicked") // ajouter la classe box-clicked à l'élément div
-            if (i < nbBox){
+            if (i < nbBox) {
                 shuffleChildren(board)
             }
-            
+
 
             //1
-            if(nb == board.children.length){ // si nb == au nombre de boites en jeu
+            if (nb == board.children.length) { // si nb == au nombre de boites en jeu
                 // alert("VICTOIRE !") //
                 // board.querySelectorAll(".box-clicked").forEach(function(validBox){ //
-                    // validBox.classList.remove("box-clicked") //
-                board.querySelectorAll(".box").forEach(function(box){ // on récupère tous les éléments div de board qui possède la classe box
+                // validBox.classList.remove("box-clicked") //
+                board.querySelectorAll(".box").forEach(function (box) { // on récupère tous les éléments div de board qui possède la classe box
                     showReaction("success", box) // on affiche la réaction "success"
                 })
             }
-            
+
             nb++
         }
         // 2
-        else if(i > nb){
+        else if (i > nb) {
             // alert("Erreur, recommencez !")
-            showReaction("error", newbox) 
+            showReaction("error", newbox)
             nb = 1
-            board.querySelectorAll(".box-clicked").forEach(function(validBox){ // on récupère tous les éléments div de board qui possède la classe box-clicked
+            board.querySelectorAll(".box-clicked").forEach(function (validBox) { // on récupère tous les éléments div de board qui possède la classe box-clicked
                 validBox.classList.remove("box-clicked") // supprime la classe box-clicked
             })
-            setTimeout(()=>{shuffleChildren(board)}, 800)
+            setTimeout(() => { shuffleChildren(board) }, 800)
         }
         //3
-        else{
+        else {
             // alert("Case déjà cliquée !")
             showReaction("notice", newbox) // on affiche la réaction "notice"
         }
