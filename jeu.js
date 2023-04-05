@@ -20,6 +20,15 @@ function shuffleChildren(parent){
     }
 }
 
+function showReaction(type, clickedBox){
+    clickedBox.classList.add(type)
+    if(type !== "success"){
+        setTimeout(function(){
+            clickedBox.classList.remove(type)
+        }, 800)
+    }
+}
+
 
 //let i = board.children.length, k, temp
 //-----  -----//
@@ -35,7 +44,7 @@ const board = document.querySelector("#board")
 
 let nb = 1
 for(let i = 1; i <= 10; i++){
-    let newbox = box.cloneNode()
+    const newbox = box.cloneNode()
     newbox.innerText = i
     board.appendChild(newbox)
 
@@ -47,16 +56,19 @@ for(let i = 1; i <= 10; i++){
             
             //1
             if(nb == board.children.length){
-                alert("VICTOIRE !")
-                board.querySelectorAll(".box-clicked").forEach(function(validBox){
-                    validBox.classList.remove("box-clicked")
+                // alert("VICTOIRE !")
+                // board.querySelectorAll(".box-clicked").forEach(function(validBox){
+                    // validBox.classList.remove("box-clicked")
+                board.querySelectorAll(".box").forEach(function(box){
+                    showReaction("success", box)
                 })
             }
             nb++
         }
         // 2
         else if(i > nb){
-            alert("Erreur, recommencez !")
+            // alert("Erreur, recommencez !")
+            showReaction("error", newbox)
             nb = 1
             board.querySelectorAll(".box-clicked").forEach(function(validBox){
                 validBox.classList.remove("box-clicked")
@@ -64,7 +76,8 @@ for(let i = 1; i <= 10; i++){
         }
         //3
         else{
-            alert("Case déjà cliquée !")
+            // alert("Case déjà cliquée !")
+            showReaction("notice", newbox)
         }
     })
 }
