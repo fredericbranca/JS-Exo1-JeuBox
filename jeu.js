@@ -21,7 +21,7 @@ function shuffleChildren(parent){
 function showReaction(type, clickedBox){ 
     clickedBox.classList.add(type)
     if(type !== "success"){
-        const timeout = setTimeout(function(){
+        setTimeout(function(){
             clickedBox.classList.remove(type)
         }, 800)
     }
@@ -53,7 +53,11 @@ for(let i = 1; i <= nbBox; i++){
         if(i == nb){
             // console.log("Boite n°"+ i +", click !") //
             newbox.classList.add("box-clicked") // ajouter la classe box-clicked à l'élément div
+            if (i < nbBox){
+                shuffleChildren(board)
+            }
             
+
             //1
             if(nb == board.children.length){ // si nb == au nombre de boites en jeu
                 // alert("VICTOIRE !") //
@@ -63,6 +67,7 @@ for(let i = 1; i <= nbBox; i++){
                     showReaction("success", box) // on affiche la réaction "success"
                 })
             }
+            
             nb++
         }
         // 2
