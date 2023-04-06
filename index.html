@@ -11,12 +11,29 @@
 
 <body>
 
-    <div id="board"></div>
+    <nav>
+        <h2><a aria-current="page" href="index.html">Actualiser</a></h2>
+        <button type="button" id="recommencer"><h2>Recommencer</h2></button>
+    </nav>
 
-    <div id="seconds">0</div>
+    <section class="accueil">
 
-    <script type="text/javascript" src="jeu.js"></script>
+    <div id="jeuBox" class="container">
 
+        <h1>Jouons avec le DOM</h1>
+        <div id="board"></div>
+        <div class="timer" id="timer"></div>
+        <br>
+        <br>
+        <div class="timer" id="record"></div>
+
+        <script type="text/javascript" src="jeu.js"></script>
+
+        
+
+    </div>
+
+    </section>
 
 </body>
 
